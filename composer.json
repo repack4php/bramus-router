@@ -19,6 +19,12 @@
             "homepage": "http://www.bram.us"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/repack4php/bramus-router.git"
+        }
+    ],
     "require": {
         "php": ">=5.3.0"
     },
