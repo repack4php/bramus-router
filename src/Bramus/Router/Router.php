@@ -48,9 +48,9 @@ class Router
     private $namespace = '';
 
     /**
-     * @var string Default Controllers Namespace
+     * @var callable 
      */
-    protected $container;
+    protected $instantiator;
 
     /**
      * Store a before middleware route and a handling function to be executed when accessed using one of the specified methods.
@@ -479,8 +479,8 @@ class Router
                 $controller = $this->getNamespace() . '\\' . $controller;
             }
 
-            if ($this->container) {
-                call_user_func_array(array($this->container->get($controller), $method), $params);
+            if ($this->instantiator) {
+                call_user_func_array(array(call_user_func($this->instantiator, $controller), $method), $params);
                 return;
             }
 
@@ -550,21 +550,21 @@ class Router
     }
 
     /**
-     * @return string Default Controllers Namespace
+     * @return callable
      */
-    public function getContainer()
+    public function getInstantiator()
     {
-        return $this->container;
+        return $this->instantiator;
     }
 
     /**
-     * @param string Default Controllers Namespace $container
+     * @param callable $instantiator
      *
      * @return self
      */
-    public function setContainer($container)
+    public function setInstantiator(callable $instantiator)
     {
-        $this->container = $container;
+        $this->instantiator = $instantiator;
 
         return $this;
     }
