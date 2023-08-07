@@ -1,11 +1,18 @@
 {
-    "name": "bramus/router",
+    "name": "repack4php/bramus-router",
     "description": "A lightweight and simple object oriented PHP Router",
-    "keywords": ["router", "routing"],
+    "keywords": [
+        "router",
+        "routing"
+    ],
     "homepage": "https://github.com/bramus/router",
     "type": "library",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Divine Nkwati",
+            "email": "drnkwati@gmail.com"
+        },
         {
             "name": "Bram(us) Van Damme",
             "email": "bramus@bram.us",
@@ -21,11 +28,17 @@
         "friendsofphp/php-cs-fixer": "~2.14"
     },
     "autoload": {
-        "psr-0": {"Bramus": "src/"}
+        "psr-0": {
+            "Bramus": "src/"
+        }
     },
     "scripts": {
         "test": "./vendor/bin/phpunit --colors=always",
         "lint": "php-cs-fixer fix --diff --dry-run",
         "fix": "php-cs-fixer fix"
-    }
+    },
+    "suggest": {
+        "repack4php/illuminate-container": "Psr Container."
+    },
+    "minimum-stability": "dev"
 }

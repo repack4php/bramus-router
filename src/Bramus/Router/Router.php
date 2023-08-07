@@ -48,6 +48,11 @@ class Router
     private $namespace = '';
 
     /**
+     * @var string Default Controllers Namespace
+     */
+    protected $container;
+
+    /**
      * Store a before middleware route and a handling function to be executed when accessed using one of the specified methods.
      *
      * @param string          $methods Allowed methods, | delimited
@@ -474,6 +479,11 @@ class Router
                 $controller = $this->getNamespace() . '\\' . $controller;
             }
 
+            if ($this->container) {
+                call_user_func_array(array($this->container->get($controller), $method), $params);
+                return;
+            }
+
             try {
                 $reflectedMethod = new \ReflectionMethod($controller, $method);
                 // Make sure it's callable
@@ -537,5 +547,25 @@ class Router
     public function setBasePath($serverBasePath)
     {
         $this->serverBasePath = $serverBasePath;
+    }
+
+    /**
+     * @return string Default Controllers Namespace
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * @param string Default Controllers Namespace $container
+     *
+     * @return self
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+
+        return $this;
     }
 }
